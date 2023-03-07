@@ -3,7 +3,7 @@ import { useAppSelector } from '../../hooks/use-app-selector';
 import {
   getPromoLoadingStatus,
   getPromo,
-} from '../../store/promo-load/selectors';
+} from '../../store/promo-state/selectors';
 import {
   getCamerasLoadingStatus,
   getCameras,

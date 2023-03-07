@@ -1,14 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
-import { PromoLoad } from '../../types/state';
+import { PromoState } from '../../types/state';
 import { fetchPromoAction } from './api-actions';
 
-const initialState: PromoLoad = {
+const initialState: PromoState = {
   promo: null,
   isPromoLoading: false
 };
 
-export const promoLoad = createSlice({
+export const promoState = createSlice({
   name: NameSpace.Promo,
   initialState,
   reducers: {},

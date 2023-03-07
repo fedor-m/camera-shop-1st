@@ -11,7 +11,7 @@ import { APIRoute } from '../../const';
 
 const fakePromo = makeFakePromo();
 
-describe('Async actions: promoLoad', () => {
+describe('Async actions: promoState', () => {
   const api = createAPI();
   const mockAPI = new MockAdapter(api);
   const middlewares = [thunk.withExtraArgument(api)];

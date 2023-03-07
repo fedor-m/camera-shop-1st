@@ -10,7 +10,7 @@ export type CamerasLoad = {
   total: number;
   areCamerasLoading: boolean;
 }
-export type PromoLoad = {
+export type PromoState = {
   promo: null | Promo;
   isPromoLoading: boolean;
 }

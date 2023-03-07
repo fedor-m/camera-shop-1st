@@ -5,7 +5,7 @@ import HistoryRouter from './components/history-router/history-router';
 import browserHistory from './browser-history';
 import { store } from './store/store';
 import { fetchCamerasAction } from './store/cameras-load/api-actions';
-import { fetchPromoAction } from './store/promo-load/api-actions';
+import { fetchPromoAction } from './store/promo-state/api-actions';
 import App from './components/app/app';
 import { FIRST_PAGE_DATA } from './const';
 
