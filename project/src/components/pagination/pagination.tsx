@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
-import { fetchCamerasAction } from '../../store/cameras-load/api-actions';
+import { fetchCamerasAction } from '../../store/cameras-state/api-actions';
 import {
   AppRoute,
   FIRST,

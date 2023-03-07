@@ -11,7 +11,7 @@ import { APIRoute, FIRST_PAGE_DATA } from '../../const';
 
 const fakeStateCameras = makeFakeStateCameras();
 
-describe('Async actions: camerasLoad', () => {
+describe('Async actions: camerasState', () => {
   const api = createAPI();
   const mockAPI = new MockAdapter(api);
   const middlewares = [thunk.withExtraArgument(api)];

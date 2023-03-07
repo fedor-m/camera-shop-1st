@@ -1,11 +1,11 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import { NameSpace } from '../const';
-import { camerasLoad } from './cameras-load/cameras-load';
+import { camerasState } from './cameras-state/cameras-state';
 import { promoState } from './promo-state/promo-state';
-import { itemLoad } from './item-load/item-load';
+import { itemState } from './item-state/item-state';
 
 export const rootReducer = combineReducers({
-  [NameSpace.Cameras]: camerasLoad.reducer,
+  [NameSpace.Cameras]: camerasState.reducer,
   [NameSpace.Promo]: promoState.reducer,
-  [NameSpace.Item]: itemLoad.reducer
+  [NameSpace.Item]: itemState.reducer
 });

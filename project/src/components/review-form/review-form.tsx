@@ -1,8 +1,8 @@
 import { useState, Fragment, ChangeEvent, FormEvent } from 'react';
 import { useAppSelector } from '../../hooks/use-app-selector';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
-import { getReviewFormBlockedStatus } from '../../store/item-load/selectors';
-import { sendReviewAction } from '../../store/item-load/api-actions';
+import { getReviewFormBlockedStatus } from '../../store/item-state/selectors';
+import { sendReviewAction } from '../../store/item-state/api-actions';
 import { MIN_REVIEW_LENGTH, MAX_RATING, MIN_RATING, RATINGS } from '../../const';
 
 type ReviewFormProps = {

@@ -7,7 +7,7 @@ import {
   fetchReviewsAction,
   fetchSelectedCameraAction,
   fetchSimilarItemsAction,
-} from '../../store/item-load/api-actions';
+} from '../../store/item-state/api-actions';
 import {
   getSelectedCamera,
   getSelectedCameraLoadingStatus,
@@ -17,7 +17,7 @@ import {
   getReviews,
   getReviewsLoadingStatus,
   getAddedReview,
-} from '../../store/item-load/selectors';
+} from '../../store/item-state/selectors';
 import { getSortedReviews } from '../../utils';
 import { AppRoute } from '../../const';
 import NotFoundPage from '../not-found-page/not-found-page';

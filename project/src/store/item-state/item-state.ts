@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
-import { ItemLoad } from '../../types/state';
+import { ItemState } from '../../types/state';
 import {
   fetchSelectedCameraAction,
   fetchSimilarItemsAction,
@@ -8,7 +8,7 @@ import {
   sendReviewAction
 } from './api-actions';
 
-const initialState: ItemLoad = {
+const initialState: ItemState = {
   selectedCamera: null,
   isSelectedCameraLoading: false,
   hasSelectedCameraLoadingError: false,
@@ -20,7 +20,7 @@ const initialState: ItemLoad = {
   addedReview: null
 };
 
-export const itemLoad = createSlice({
+export const itemState = createSlice({
   name: NameSpace.Item,
   initialState,
   reducers: {},

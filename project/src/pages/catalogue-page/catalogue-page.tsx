@@ -8,7 +8,7 @@ import {
   getCamerasLoadingStatus,
   getCameras,
   getCamerasTotalCount,
-} from '../../store/cameras-load/selectors';
+} from '../../store/cameras-state/selectors';
 import Icons from '../../components/icons/icons';
 import Header from '../../components/header/header';
 import Banner from '../../components/banner/banner';

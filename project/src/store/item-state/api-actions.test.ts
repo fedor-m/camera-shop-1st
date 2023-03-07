@@ -22,7 +22,7 @@ const fakeCamera = makeFakeCamera();
 const fakeSimilarCameras = makeFakeSimilarCameras();
 const fakeReviews = makeFakeReviews();
 
-describe('Async actions: itemLoad', () => {
+describe('Async actions: itemState', () => {
   const api = createAPI();
   const mockAPI = new MockAdapter(api);
   const middlewares = [thunk.withExtraArgument(api)];

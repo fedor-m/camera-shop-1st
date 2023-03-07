@@ -1,11 +1,11 @@
-import { itemLoad } from './item-load';
+import { itemState } from './item-state';
 import {
   fetchSelectedCameraAction,
   fetchSimilarItemsAction,
   fetchReviewsAction,
   sendReviewAction,
 } from './api-actions';
-import { ItemLoad } from '../../types/state';
+import { ItemState } from '../../types/state';
 import {
   makeFakeCamera,
   makeFakeSimilarCameras,
@@ -17,8 +17,8 @@ const fakeCamera = makeFakeCamera();
 const fakeSimilarCameras = makeFakeSimilarCameras();
 const fakeReviews = makeFakeReviews();
 const fakeReview = makeFakeReview();
-describe('Reducer: itemLoad', () => {
-  let state: ItemLoad;
+describe('Reducer: itemState', () => {
+  let state: ItemState;
 
   beforeEach(() => {
     state = {
@@ -35,7 +35,7 @@ describe('Reducer: itemLoad', () => {
   });
 
   it('without additional parameters should return initial state', () => {
-    expect(itemLoad.reducer(void 0, { type: 'UNKNOWN_ACTION' })).toEqual(
+    expect(itemState.reducer(void 0, { type: 'UNKNOWN_ACTION' })).toEqual(
       state
     );
   });
@@ -43,7 +43,7 @@ describe('Reducer: itemLoad', () => {
   describe('Action: fetchSelectedCameraAction', () => {
     it('should update loading status to "true" and reset error if action pending', () => {
       expect(
-        itemLoad.reducer(state, {
+        itemState.reducer(state, {
           type: fetchSelectedCameraAction.pending.type,
         })
       ).toEqual({
@@ -55,7 +55,7 @@ describe('Reducer: itemLoad', () => {
 
     it('should update loading status to "false" and loaded offer property if action fulfilled', () => {
       expect(
-        itemLoad.reducer(state, {
+        itemState.reducer(state, {
           type: fetchSelectedCameraAction.fulfilled.type,
           payload: fakeCamera,
         })
@@ -68,7 +68,7 @@ describe('Reducer: itemLoad', () => {
 
     it('should update loading status to "false" and add error if action rejected', () => {
       expect(
-        itemLoad.reducer(state, {
+        itemState.reducer(state, {
           type: fetchSelectedCameraAction.rejected.type,
         })
       ).toEqual({
@@ -82,7 +82,7 @@ describe('Reducer: itemLoad', () => {
   describe('Action: fetchSimilarItemsAction', () => {
     it('should loaded nearest offers if action fulfilled', () => {
       expect(
-        itemLoad.reducer(state, {
+        itemState.reducer(state, {
           type: fetchSimilarItemsAction.fulfilled.type,
           payload: fakeSimilarCameras,
         })
@@ -93,7 +93,7 @@ describe('Reducer: itemLoad', () => {
   describe('Action: fetchReviewsAction', () => {
     it('should loaded reviews if action fulfilled', () => {
       expect(
-        itemLoad.reducer(state, {
+        itemState.reducer(state, {
           type: fetchReviewsAction.fulfilled.type,
           payload: fakeReviews,
         })
@@ -104,13 +104,13 @@ describe('Reducer: itemLoad', () => {
   describe('Action: sendReviewAction', () => {
     it('should update form block status to "true" if action pending', () => {
       expect(
-        itemLoad.reducer(state, { type: sendReviewAction.pending.type })
+        itemState.reducer(state, { type: sendReviewAction.pending.type })
       ).toEqual({ ...state, isReviewFormBlocked: true });
     });
 
     it('should update form block status to "false" and loaded reviews if action fulfilled', () => {
       expect(
-        itemLoad.reducer(state, {
+        itemState.reducer(state, {
           type: sendReviewAction.fulfilled.type,
           payload: fakeReview,
         })
@@ -119,7 +119,7 @@ describe('Reducer: itemLoad', () => {
 
     it('should update form block status to "false" if action rejected', () => {
       expect(
-        itemLoad.reducer(state, { type: sendReviewAction.rejected.type })
+        itemState.reducer(state, { type: sendReviewAction.rejected.type })
       ).toEqual({ ...state, isReviewFormBlocked: false});
     });
   });
