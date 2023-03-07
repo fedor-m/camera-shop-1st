@@ -21,6 +21,26 @@ function SimilarItems({ cameras }: SimilarItemsProps): JSX.Element {
       isActive={slides.includes(camera.id)}
     />
   ));
+  const handlePreviousSlideButtonClick = () => {
+    const newFirstSlide = firstSlide - SLIDES_ON_PAGE;
+    const newLastSlide = lastSlide - SLIDES_ON_PAGE;
+    if (newFirstSlide === 0) {
+      setBackButtonDisabled(true);
+    }
+    setFirstSlide(newFirstSlide);
+    setLastSlide(newLastSlide);
+    setNextButtonDisabled(false);
+  };
+  const handleNextSlideButtonClick = () => {
+    const newFirstSlide = firstSlide + SLIDES_ON_PAGE;
+    const newLastSlide = lastSlide + SLIDES_ON_PAGE;
+    if (newLastSlide === cameras.length) {
+      setNextButtonDisabled(true);
+    }
+    setFirstSlide(newFirstSlide);
+    setLastSlide(newLastSlide);
+    setBackButtonDisabled(false);
+  };
   return (
     <section className="product-similar">
       <div className="container">
@@ -34,18 +54,7 @@ function SimilarItems({ cameras }: SimilarItemsProps): JSX.Element {
             type="button"
             aria-label="Предыдущий слайд"
             disabled={isBackButtonDisabled}
-            onClick={
-              () => {
-                const newFirstSlide = firstSlide - SLIDES_ON_PAGE;
-                const newLastSlide = lastSlide - SLIDES_ON_PAGE;
-                if (newFirstSlide === 0) {
-                  setBackButtonDisabled(true);
-                }
-                setFirstSlide(newFirstSlide);
-                setLastSlide(newLastSlide);
-                setNextButtonDisabled(false);
-              }
-            }
+            onClick={handlePreviousSlideButtonClick}
           >
             <svg width="7" height="12" aria-hidden="true">
               <use xlinkHref="#icon-arrow"></use>
@@ -56,18 +65,7 @@ function SimilarItems({ cameras }: SimilarItemsProps): JSX.Element {
             type="button"
             aria-label="Следующий слайд"
             disabled={isNextButtonDisabled}
-            onClick={
-              () => {
-                const newFirstSlide = firstSlide + SLIDES_ON_PAGE;
-                const newLastSlide = lastSlide + SLIDES_ON_PAGE;
-                if (newLastSlide === cameras.length) {
-                  setNextButtonDisabled(true);
-                }
-                setFirstSlide(newFirstSlide);
-                setLastSlide(newLastSlide);
-                setBackButtonDisabled(false);
-              }
-            }
+            onClick={handleNextSlideButtonClick}
           >
             <svg width="7" height="12" aria-hidden="true">
               <use xlinkHref="#icon-arrow"></use>

@@ -25,12 +25,15 @@ function Modal({ openModalWindow, title, children }: ModalProps): JSX.Element {
       document.removeEventListener('keydown', handleEscKey);
     };
   }, [openModalWindow]);
+  const handleModalWindowClose = () => {
+    openModalWindow(false);
+  };
   return (
     <div className="modal is-active">
       <div className="modal__wrapper">
         <div
           className="modal__overlay"
-          onClick={() => openModalWindow(false)}
+          onClick={handleModalWindowClose}
         />
         <div className="modal__content">
           <p className="title title--h4">{title}</p>
@@ -39,7 +42,7 @@ function Modal({ openModalWindow, title, children }: ModalProps): JSX.Element {
             className="cross-btn"
             type="button"
             aria-label="Закрыть попап"
-            onClick={() => openModalWindow(false)}
+            onClick={handleModalWindowClose}
           >
             <svg width="10" height="10" aria-hidden="true">
               <use xlinkHref="#icon-close"></use>

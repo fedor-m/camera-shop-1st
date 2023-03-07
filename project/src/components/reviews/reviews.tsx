@@ -10,13 +10,28 @@ type ReviewsProps = {
 
 function Reviews({ reviews, openModalWindow }: ReviewsProps): JSX.Element {
   const [reviewsToDisplay, setReviewsToDisplay] = useState(REVIEWS_ON_PAGE);
-  const [isMoreReviewsButtonDisabled, setIsMoreReviewsButtonDisabled] = useState(false);
+  const checkReviewsLength = () => reviews && reviews.length < REVIEWS_ON_PAGE;
+  const [isMoreReviewsButtonDisabled, setIsMoreReviewsButtonDisabled] = useState(checkReviewsLength());
   const reviewCards = reviews && reviews.slice(0, reviewsToDisplay).map((review) => (
     <ReviewCard
       key={review.id}
       review={review}
     />
   ));
+  const handleDisplayMoreReviewsButtonClick = () => {
+    const newReviews = reviewsToDisplay + REVIEWS_ON_PAGE;
+    const areReviewsReachedLimit = reviews && (
+      newReviews >= reviews.length
+      ||
+      checkReviewsLength()
+    );
+    if (areReviewsReachedLimit) {
+      setIsMoreReviewsButtonDisabled(true);
+    }
+    setReviewsToDisplay(newReviews);
+  };
+  const handleModalWindowOpen = () =>
+    openModalWindow(true);
   return (
     <section className="review-block">
       <div className="container">
@@ -25,7 +40,7 @@ function Reviews({ reviews, openModalWindow }: ReviewsProps): JSX.Element {
           <button
             className="btn"
             type="button"
-            onClick={() => openModalWindow(true)}
+            onClick={handleModalWindowOpen}
           >
             Оставить свой отзыв
           </button>
@@ -39,23 +54,15 @@ function Reviews({ reviews, openModalWindow }: ReviewsProps): JSX.Element {
             <button
               className="btn btn--purple"
               type="button"
-              onClick={
-                () => {
-                  const newReviews = reviewsToDisplay + REVIEWS_ON_PAGE;
-                  const areReviewsReachedLimit = reviews && (newReviews >= reviews.length || reviews.length < REVIEWS_ON_PAGE);
-                  if (areReviewsReachedLimit) {
-                    setIsMoreReviewsButtonDisabled(true);
-                  }
-                  setReviewsToDisplay(newReviews);
-                }
-              }
+              onClick={handleDisplayMoreReviewsButtonClick}
             >
               Показать больше отзывов
             </button>
+
           }
         </div>
       </div>
-    </section >
+    </section>
   );
 }
 export default Reviews;

@@ -112,7 +112,10 @@ function ItemPage(): JSX.Element {
               )}
             </div>
           </div>
-          <button className="up-btn" onClick={handleScrollToTop}>
+          <button
+            className="up-btn"
+            onClick={handleScrollToTop}
+          >
             <svg width="12" height="18" aria-hidden="true">
               <use xlinkHref="#icon-arrow2"></use>
             </svg>

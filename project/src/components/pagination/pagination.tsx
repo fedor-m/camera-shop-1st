@@ -23,33 +23,55 @@ function Pagination({ camerasLength }: PaginationProps): JSX.Element {
   const itemsToPreviousPage = getItemNumbersToPage(page - 1);
   const itemsToNextPage = getItemNumbersToPage(page + 1);
   const dispatch = useAppDispatch();
-  const paginationItems = pagesList.map((item, index) => (
-    <li
-      className="pagination__item"
-      key={item + 1}
-    >
-      {
-        <Link
-          className={`pagination__link ${(index + 1) === page ? 'pagination__link--active' : ''}`}
-          to={
-            index === 0
-              ?
-              AppRoute.Catalogue
-              :
-              `${AppRoute.CataloguePage}/${index + 1}`
-          }
-          onClick={
-            () => {
-              const items = getItemNumbersToPage(index + 1);
-              dispatch(fetchCamerasAction({ start: items.start, end: items.end }));
+  const handlePreviousPageButtonClick = () => {
+    dispatch(
+      fetchCamerasAction(
+        {
+          start: itemsToPreviousPage.start,
+          end: itemsToPreviousPage.end
+        }
+      )
+    );
+  };
+  const handleNextButtonClick = () => {
+    dispatch(
+      fetchCamerasAction(
+        {
+          start: itemsToNextPage.start,
+          end: itemsToNextPage.end
+        }
+      )
+    );
+  };
+  const paginationItems = pagesList.map((item, index) => {
+    const handlePageButtonClick = () => {
+      const items = getItemNumbersToPage(index + 1);
+      dispatch(fetchCamerasAction({ start: items.start, end: items.end }));
+    };
+    return (
+      <li
+        className="pagination__item"
+        key={item + 1}
+      >
+        {
+          <Link
+            className={`pagination__link ${(index + 1) === page ? 'pagination__link--active' : ''}`}
+            to={
+              index === 0
+                ?
+                AppRoute.Catalogue
+                :
+                `${AppRoute.CataloguePage}/${index + 1}`
             }
-          }
-        >
-          {index + 1}
-        </Link>
-      }
-    </li>
-  ));
+            onClick={handlePageButtonClick}
+          >
+            {index + 1}
+          </Link>
+        }
+      </li>
+    );
+  }
+  );
   const previousPageButton = (
     <li className="pagination__item">
       <Link
@@ -61,18 +83,7 @@ function Pagination({ camerasLength }: PaginationProps): JSX.Element {
             :
             AppRoute.Catalogue
         }
-        onClick={
-          () => {
-            dispatch(
-              fetchCamerasAction(
-                {
-                  start: itemsToPreviousPage.start,
-                  end: itemsToPreviousPage.end
-                }
-              )
-            );
-          }
-        }
+        onClick={handlePreviousPageButtonClick}
       >
         Назад
       </Link>
@@ -83,18 +94,7 @@ function Pagination({ camerasLength }: PaginationProps): JSX.Element {
       <Link
         className="pagination__link pagination__link--text"
         to={`${AppRoute.CataloguePage}/${page + 1}`}
-        onClick={
-          () => {
-            dispatch(
-              fetchCamerasAction(
-                {
-                  start: itemsToNextPage.start,
-                  end: itemsToNextPage.end
-                }
-              )
-            );
-          }
-        }
+        onClick={handleNextButtonClick}
       >
         Далее
       </Link>

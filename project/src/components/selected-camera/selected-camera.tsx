@@ -49,6 +49,10 @@ function SelectedCamera({ camera }: SelectedCameraProps): JSX.Element {
       </svg>
     )
   );
+  const handleCharacteristicsButtonClick = () =>
+    setActiveTab(Tabs.Characteristics);
+  const handleDescriptionButtonClick = () =>
+    setActiveTab(Tabs.Description);
   return (
     <section className="product">
       <div className="container">
@@ -93,14 +97,14 @@ function SelectedCamera({ camera }: SelectedCameraProps): JSX.Element {
               <button
                 className={`tabs__control${tab === Tabs.Characteristics ? ' is-active' : ''}`}
                 type="button"
-                onClick={() => setActiveTab(Tabs.Characteristics)}
+                onClick={handleCharacteristicsButtonClick}
               >
                 Характеристики
               </button>
               <button
                 className={`tabs__control${tab === Tabs.Description ? ' is-active' : ''}`}
                 type="button"
-                onClick={() => setActiveTab(Tabs.Description)}
+                onClick={handleDescriptionButtonClick}
               >
                 Описание
               </button>
