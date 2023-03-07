@@ -25,17 +25,3 @@ export const fetchCamerasAction = createAsyncThunk<
   return result;
 });
 
-/*export const fetchAllCamerasAction = createAsyncThunk<
-Camera[],
-undefined,
-  {
-    dispatch: AppDispatch;
-    state: State;
-    extra: AxiosInstance;
-  }
->('data/fetchAllCameras', async (_arg, { extra: api }) => {
-  const { data } = await api.get<Camera[]>(
-    `${APIRoute.Cameras}`
-  );
-  return data;
-});*/
