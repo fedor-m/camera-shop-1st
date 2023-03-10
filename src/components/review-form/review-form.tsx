@@ -3,7 +3,7 @@ import { useAppSelector } from '../../hooks/use-app-selector';
 import { useAppDispatch } from '../../hooks/use-app-dispatch';
 import { getReviewFormBlockedStatus } from '../../store/item-state/selectors';
 import { sendReviewAction } from '../../store/item-state/api-actions';
-import { MIN_REVIEW_LENGTH, MAX_RATING, MIN_RATING, RATINGS } from '../../const';
+import { MIN_REVIEW_LENGTH, MAX_RATING, MIN_RATING, RATINGS, Fields } from '../../const';
 
 type ReviewFormProps = {
   itemID: number;
@@ -29,21 +29,68 @@ function ReviewForm({ itemID }: ReviewFormProps): JSX.Element {
   };
   const [formData, setFormData] = useState(formState);
   const [errors, setErrors] = useState(errorsState);
+  const [isFormTouched, setFormTouched] = useState(false);
+  const checkFieldsSubmittedCorrectly = (): boolean => {
+    const { userName, advantage, disadvantage, review, rating } =
+      formData;
+    return (
+      userName.trim().length > 0 &&
+      advantage.trim().length > 0 &&
+      disadvantage.trim().length > 0 &&
+      review.trim().length >= MIN_REVIEW_LENGTH &&
+      Number(rating) >= MIN_RATING &&
+      Number(rating) <= MAX_RATING
+    );
+  };
   const handleFieldChange = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
+    if (isFormTouched) {
+      switch (name) {
+        case Fields.Rating: {
+          setErrors({
+            ...errors,
+            rating: Number(value) < MIN_RATING || Number(value) > MAX_RATING
+          });
+          break;
+        }
+        case Fields.UserName: {
+          setErrors({
+            ...errors,
+            userName: value.trim().length === 0
+          });
+          break;
+        }
+        case Fields.Advantage: {
+          setErrors({
+            ...errors,
+            advantage: value.trim().length === 0
+          });
+          break;
+        }
+        case Fields.Disadvantage: {
+          setErrors({
+            ...errors,
+            disadvantage: value.trim().length === 0
+          });
+          break;
+        }
+        case Fields.Review: {
+          setErrors({
+            ...errors,
+            review: value.trim().length < MIN_REVIEW_LENGTH
+          });
+          break;
+        }
+      }
+    }
   };
   const handleFormSubmit = (event: FormEvent) => {
     event.preventDefault();
-    if (
-      !errors.userName &&
-      !errors.advantage &&
-      !errors.disadvantage &&
-      !errors.review &&
-      !errors.rating
-    ) {
+    setFormTouched(true);
+    if (checkFieldsSubmittedCorrectly()) {
       const { cameraId, userName, advantage, disadvantage, review, rating } =
         formData;
       dispatch(
@@ -58,18 +105,19 @@ function ReviewForm({ itemID }: ReviewFormProps): JSX.Element {
       ).then(() => {
         setFormData(formState);
         setErrors(errorsState);
+        setFormTouched(false);
       });
-    } else {
+    }
+    else {
       setErrors({
         ...errors,
-        userName: formData.userName === '',
-        advantage: formData.advantage === '',
-        disadvantage: formData.disadvantage === '',
-        review: formData.review.length < MIN_REVIEW_LENGTH,
+        userName: formData.userName.trim().length === 0,
+        advantage: formData.advantage.trim().length === 0,
+        disadvantage: formData.disadvantage.trim().length === 0,
+        review: formData.review.trim().length < MIN_REVIEW_LENGTH,
         rating:
-          isNaN(Number(formData.rating)) ||
-          Number(formData.rating) > MAX_RATING ||
-          Number(formData.rating) < MIN_RATING,
+          Number(formData.rating) < MIN_RATING ||
+          Number(formData.rating) > MAX_RATING
       });
     }
   };

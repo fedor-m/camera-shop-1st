@@ -27,6 +27,13 @@ export enum Sort {
   Rating = 'rating',
   Price = 'price'
 }
+export enum Fields {
+  Rating = 'rating',
+  UserName = 'userName',
+  Advantage = 'advantage',
+  Disadvantage = 'disadvantage',
+  Review = 'review'
+}
 export const RANGES = Object.freeze(
   [
     {
