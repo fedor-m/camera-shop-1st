@@ -42,6 +42,7 @@ function ItemPage(): JSX.Element {
       store.dispatch(fetchSelectedCameraAction(itemID));
       store.dispatch(fetchSimilarItemsAction(itemID));
       store.dispatch(fetchReviewsAction(itemID));
+      handleScrollToTop();
     }
     return () => {
       isMounted = false;
@@ -132,6 +133,7 @@ function ItemPage(): JSX.Element {
                 </Modal>
               ) :
                 (
+
                   <Modal
                     openModalWindow={handleModalReviewSuccessClose}
                     title="Спасибо за отзыв"
